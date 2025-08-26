@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+        <!-- Create a new category -->
+        <record id="module_category_pricelist" model="ir.module.category">
+            <field name="name">Pricelist</field>
+            <field name="sequence">220</field>
+        </record>
+
+        <!-- Group: Pricelist User -->
+        <record id="group_pricelist_user" model="res.groups">
+            <field name="name">Show Price List</field>
+            <field name="category_id" ref="module_category_pricelist"/>
+        </record>
+
+        <!-- Group: Pricelist Admin -->
+        <record id="group_admin_pricelist_user" model="res.groups">
+            <field name="name">Show Admin Price List</field>
+            <field name="category_id" ref="module_category_pricelist"/>
+        </record>
+
+    </data>
+</odoo>

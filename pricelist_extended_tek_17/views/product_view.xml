@@ -1,0 +1,209 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <!-- Product Variant Form View -->
+    <record id="view_product_pricelist_form_inherit" model="ir.ui.view">
+        <field name="name">product.product.form.pricelist.ext</field>
+        <field name="model">product.product</field>
+        <field name="inherit_id" ref="product.product_normal_form_view"/>
+        <field name="arch" type="xml">
+            <notebook position="inside">
+                <field name="is_pricelist_user" invisible="1"/>
+                <!--                <field name="is_pricelist_admin_user" invisible="1"/>-->
+                <page string="Pricelist"
+                      groups="pricelist_extended_tek_17.group_pricelist_user , pricelist_extended_tek_17.group_admin_pricelist_user">
+                    <!--                    <field name="is_pricelist_admin_user"/>-->
+                    <group>
+                        <field name="pricing_type" readonly="is_pricelist_user"/>
+                        <field name="mrp_price" groups="!pricelist_extended_tek_17.group_pricelist_user"
+                               invisible="pricing_type not in ['lp_based','lp_based_purchase']"/>
+                        <field name="last_purchase_price" groups="!pricelist_extended_tek_17.group_pricelist_user"
+                               invisible="pricing_type not in ['regular','lp_based_purchase']"/>
+                        <field name="operational_margin" groups="!pricelist_extended_tek_17.group_pricelist_user"
+                               invisible="pricing_type not in  ['regular','lp_based_purchase']"/>
+                        <field name="landing_price" readonly="1"
+                               invisible="pricing_type not in ['regular','lp_based_purchase']"/>
+                    </group>
+                    <group string="Quantity Based Pricing" invisible="pricing_type != 'regular'">
+                        <field name="qty_pricing_ids" invisible="pricing_type != 'regular'">
+
+                            <tree editable="bottom">
+                                <field name="is_pricelist_user" invisible="1"/>
+                                <field name="min_qty" readonly="is_pricelist_user"/>
+                                <field name="max_qty" readonly="is_pricelist_user"/>
+                                <field name="margin_per" readonly="is_pricelist_user"/>
+                                <field name="amount" readonly="1"/>
+                                <field name="margin" readonly="1"/>
+                            </tree>
+                        </field>
+                    </group>
+                    <group string="Customer Type Pricing" invisible="pricing_type != 'regular'">
+                        <field name="customer_pricing_ids" invisible="pricing_type != 'regular'">
+                            <tree editable="bottom">
+                                <field name="is_pricelist_user" invisible="1"/>
+                                <field name="customer_type_id"
+                                       readonly="is_pricelist_user"/>
+                                <field name="margin_per" readonly="is_pricelist_user"/>
+                                <field name="amount" readonly="1"/>
+                                <field name="margin" readonly="1"/>
+                            </tree>
+                        </field>
+                    </group>
+
+                    <group string="Quantity LP Based Pricing" invisible="pricing_type != 'lp_based'">
+                        <field name="qty_lp_pricing_ids" invisible="pricing_type != 'lp_based'">
+                            <tree editable="bottom">
+                                <field name="is_pricelist_user" invisible="1"/>
+                                <field name="min_qty" readonly="is_pricelist_user"/>
+                                <field name="max_qty" readonly="is_pricelist_user"/>
+                                <field name="margin_per" readonly="is_pricelist_user"/>
+                                <field name="amount" readonly="1"/>
+                                <field name="margin" readonly="1"/>
+                            </tree>
+                        </field>
+                    </group>
+                    <group string="Customer LP Type Pricing" invisible="pricing_type != 'lp_based'">
+                        <field name="customer_lp_pricing_ids" invisible="pricing_type != 'lp_based'">
+                            <tree editable="bottom">
+                                <field name="is_pricelist_user" invisible="1"/>
+                                <field name="customer_type_id"
+                                       readonly="is_pricelist_user"/>
+                                <field name="margin_per" readonly="is_pricelist_user"/>
+                                <field name="amount" readonly="1"/>
+                                <field name="margin" readonly="1"/>
+                            </tree>
+                        </field>
+                    </group>
+
+                    <group string="Quantity LP Based Purchase" invisible="pricing_type != 'lp_based_purchase'">
+                        <field name="qty_lp_purchase_ids" invisible="pricing_type != 'lp_based_purchase'">
+                            <tree editable="bottom">
+                                <field name="is_pricelist_user" invisible="1"/>
+                                <field name="min_qty" readonly="is_pricelist_user"/>
+                                <field name="max_qty" readonly="is_pricelist_user"/>
+                                <field name="margin_per" readonly="is_pricelist_user"/>
+                                <field name="amount" readonly="1"/>
+                                <field name="margin" readonly="1"/>
+                            </tree>
+                        </field>
+                    </group>
+                    <group string="Customer LP Type Pricing" invisible="pricing_type != 'lp_based_purchase'">
+                        <field name="customer_lp_purchase_ids" invisible="pricing_type != 'lp_based_purchase'">
+                            <tree editable="bottom">
+                                <field name="is_pricelist_user" invisible="1"/>
+                                <field name="customer_type_id"
+                                       readonly="is_pricelist_user"/>
+                                <field name="margin_per" readonly="is_pricelist_user"/>
+                                <field name="amount" readonly="1"/>
+                                <field name="margin" readonly="1"/>
+                            </tree>
+                        </field>
+                    </group>
+
+                </page>
+            </notebook>
+        </field>
+    </record>
+
+    <!-- Product Template Form View -->
+    <record id="view_product_template_form_pricing" model="ir.ui.view">
+        <field name="name">product.template.form.pricing</field>
+        <field name="model">product.template</field>
+        <field name="inherit_id" ref="product.product_template_only_form_view"/>
+        <field name="arch" type="xml">
+            <notebook position="inside">
+                <field name="is_pricelist_user" invisible="1"/>
+                <!--                <field name="is_pricelist_admin_user" invisible="1"/>-->
+                <page string="Pricelist"
+                      groups="pricelist_extended_tek_17.group_pricelist_user , pricelist_extended_tek_17.group_admin_pricelist_user">
+                    <!--                    <field name="is_pricelist_admin_user"/>-->
+                    <group>
+                        <field name="pricing_type" readonly="is_pricelist_user"/>
+                        <field name="mrp_price" groups="!pricelist_extended_tek_17.group_pricelist_user"
+                               invisible="pricing_type not in ['lp_based','lp_based_purchase']"/>
+                        <field name="last_purchase_price" groups="!pricelist_extended_tek_17.group_pricelist_user"
+                               invisible="pricing_type not in ['regular','lp_based_purchase']"/>
+                        <field name="operational_margin" groups="!pricelist_extended_tek_17.group_pricelist_user"
+                               invisible="pricing_type not in ['regular','lp_based_purchase']"/>
+                        <field name="landing_price" readonly="1"
+                               invisible="pricing_type not in ['regular','lp_based_purchase']"/>
+                    </group>
+                    <group string="Quantity Based Pricing" invisible="pricing_type != 'regular'">
+                        <field name="qty_pricing_ids" invisible="pricing_type != 'regular'">
+                            <tree editable="bottom">
+                                <field name="is_pricelist_user" invisible="1"/>
+                                <field name="min_qty" readonly="is_pricelist_user"/>
+                                <field name="max_qty" readonly="is_pricelist_user"/>
+                                <field name="margin_per" readonly="is_pricelist_user"/>
+                                <field name="amount" readonly="1"/>
+                                <field name="margin" readonly="1"/>
+                            </tree>
+                        </field>
+                    </group>
+                    <group string="Customer Type Pricing" invisible="pricing_type != 'regular'">
+                        <field name="customer_pricing_ids" invisible="pricing_type != 'regular'">
+                            <tree editable="bottom">
+                                <field name="is_pricelist_user" invisible="1"/>
+                                <field name="customer_type_id"
+                                       readonly="is_pricelist_user"/>
+                                <field name="margin_per" readonly="is_pricelist_user"/>
+                                <field name="amount" readonly="1"/>
+                                <field name="margin" readonly="1"/>
+                            </tree>
+                        </field>
+                    </group>
+
+                    <group string="Quantity LP Based Pricing" invisible="pricing_type != 'lp_based'">
+                        <field name="qty_lp_pricing_ids" invisible="pricing_type != 'lp_based'">
+                            <tree editable="bottom">
+                                <field name="is_pricelist_user" invisible="1"/>
+                                <field name="min_qty" readonly="is_pricelist_user"/>
+                                <field name="max_qty" readonly="is_pricelist_user"/>
+                                <field name="margin_per" readonly="is_pricelist_user"/>
+                                <field name="amount" readonly="1"/>
+                                <field name="margin" readonly="1"/>
+                            </tree>
+                        </field>
+                    </group>
+                    <group string="Customer LP Type Pricing" invisible="pricing_type != 'lp_based'">
+                        <field name="customer_lp_pricing_ids" invisible="pricing_type != 'lp_based'">
+                            <tree editable="bottom">
+                                <field name="is_pricelist_user" invisible="1"/>
+                                <field name="customer_type_id"
+                                       readonly="is_pricelist_user"/>
+                                <field name="margin_per" readonly="is_pricelist_user"/>
+                                <field name="amount" readonly="1"/>
+                                <field name="margin" readonly="1"/>
+                            </tree>
+                        </field>
+                    </group>
+
+
+                    <group string="Quantity LP Based Purchase" invisible="pricing_type != 'lp_based_purchase'">
+                        <field name="qty_lp_purchase_ids" invisible="pricing_type != 'lp_based_purchase'">
+                            <tree editable="bottom">
+                                <field name="is_pricelist_user" invisible="1"/>
+                                <field name="min_qty" readonly="is_pricelist_user"/>
+                                <field name="max_qty" readonly="is_pricelist_user"/>
+                                <field name="margin_per" readonly="is_pricelist_user"/>
+                                <field name="amount" readonly="1"/>
+                                <field name="margin" readonly="1"/>
+                            </tree>
+                        </field>
+                    </group>
+                    <group string="Customer LP Type Purchase" invisible="pricing_type != 'lp_based_purchase'">
+                        <field name="customer_lp_purchase_ids" invisible="pricing_type != 'lp_based_purchase'">
+                            <tree editable="bottom">
+                                <field name="is_pricelist_user" invisible="1"/>
+                                <field name="customer_type_id"
+                                       readonly="is_pricelist_user"/>
+                                <field name="margin_per" readonly="is_pricelist_user"/>
+                                <field name="amount" readonly="1"/>
+                                <field name="margin" readonly="1"/>
+                            </tree>
+                        </field>
+                    </group>
+                </page>
+            </notebook>
+        </field>
+    </record>
+</odoo>

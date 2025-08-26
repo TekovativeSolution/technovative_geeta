@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="view_sale_order_form_pricing_type" model="ir.ui.view">
+        <field name="name">sale.order.form.pricing.type</field>
+        <field name="model">sale.order</field>
+        <field name="inherit_id" ref="sale.view_order_form"/>
+        <field name="inherit_id" ref="sale.view_order_form"/>
+        <field name="arch" type="xml">
+            <field name="partner_id" position='after'>
+                <field name="pricing_type"/>
+                <field name="customer_type_id" invisible="pricing_type != 'fixed'" readonly="1"/>
+            </field>
+        </field>
+    </record>
+
+    <!-- Updated Sale Order Line View with Price Info Button -->
+    <record id="view_order_form_inherit_price_info" model="ir.ui.view">
+        <field name="name">sale.order.form.inherit.price.info</field>
+        <field name="model">sale.order</field>
+        <field name="inherit_id" ref="sale.view_order_form"/>
+        <field name="arch" type="xml">
+            <xpath expr="//field[@name='order_line']/tree//field[@name='product_template_id']" position="after">
+                <field name="price_info"
+                       readonly="1"
+                       invisible="1"
+                       string="Price Info"
+                       help="Product pricing information"/>
+                <button name="action_show_price_details"
+                        type="object"
+                        icon="fa-info-circle"
+                        class="btn-link text-info"
+                        title="View detailed price information"/>
+                <!--                <button name="action_show_price_details"-->
+                <!--                        type="object"-->
+                <!--                        icon="fa-info-circle"-->
+                <!--                        class="btn-link text-info"-->
+                <!--                        help="View detailed price information"-->
+                <!--                />-->
+            </xpath>
+        </field>
+    </record>
+
+</odoo>
